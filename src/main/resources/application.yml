@@ -1,0 +1,9 @@
+slack:
+  api:
+    key: xoxb-YOUR-KEY
+  channel: channelname
+logging:
+  level:
+    com.recursivechaos: DEBUG
+
+
