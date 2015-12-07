@@ -10,7 +10,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Startup implements CommandLineRunner{
+public class Startup implements CommandLineRunner {
 
     private final Logger log = LoggerFactory.getLogger(Startup.class);
 
@@ -26,7 +26,6 @@ public class Startup implements CommandLineRunner{
     @Override
     public void run(String... args) throws Exception {
         log.info("Service started with key: " + apiKey);
-        slackSession.connect();
         slackSession.addMessagePostedListener(helloListener);
     }
 }

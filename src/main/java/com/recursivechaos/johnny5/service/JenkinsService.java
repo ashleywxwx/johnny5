@@ -58,10 +58,15 @@ public class JenkinsService {
 
         for (Job job : jobs.values()) {
             logger.debug("Checking job name : {}", job.getName());
-            if (null!=job.details().getLastBuild()) {
-                statuses.put(job.getName(), job.details().getLastBuild().details().getResult().name());
-            } else {
-                logger.info("Job {} has not been built yet", job.getName());
+            // TODO: We're still failing on parsing some jobs, refine this
+            try {
+                if (null != job.details().getLastBuild()) {
+                    statuses.put(job.getName(), job.details().getLastBuild().details().getResult().name());
+                } else {
+                    logger.info("Job {} has not been built yet", job.getName());
+                }
+            } catch (Exception e) {
+                logger.error("Failed to parse job data.", e);
             }
         }
 
