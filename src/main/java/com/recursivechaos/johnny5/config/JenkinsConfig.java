@@ -34,5 +34,4 @@ public class JenkinsConfig {
         return new JenkinsServer(new URI(server), username, password);
     }
 
-
 }
