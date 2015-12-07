@@ -19,6 +19,21 @@
             "name": "jobdetail.standup.time",
             "type": "java.lang.String",
             "description": "Cron expression providing standup time"
+        },
+        {
+            "name": "jenkins.server",
+            "type": "java.lang.String",
+            "description": "Server URL"
+        },
+        {
+            "name": "jenkins.username",
+            "type": "java.lang.String",
+            "description": "Jenkins username"
+        },
+        {
+            "name": "jenkins.password",
+            "type": "java.lang.String",
+            "description": "Jenkins password"
         }
     ]
 }
