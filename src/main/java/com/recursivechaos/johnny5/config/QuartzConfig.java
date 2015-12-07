@@ -19,9 +19,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.quartz.CronTriggerFactoryBean;
 import org.springframework.scheduling.quartz.JobDetailFactoryBean;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
-import org.springframework.scheduling.quartz.SimpleTriggerFactoryBean;
 
 import javax.annotation.PostConstruct;
 
@@ -43,6 +43,9 @@ public class QuartzConfig {
     @Value("${jobdetail.standup.greeting}")
     private String greeting;
 
+    @Value("${jobdetail.standup.time}")
+    private String cronTime;
+
     @PostConstruct
     public void init() {
         logger.info("QuartzConfig initialized.");
@@ -59,11 +62,10 @@ public class QuartzConfig {
     }
 
     @Bean(name = "standupJobTrigger")
-    public SimpleTriggerFactoryBean standupJobTrigger(JobDetail jobDetail) {
-        SimpleTriggerFactoryBean factoryBean = new SimpleTriggerFactoryBean();
+    public CronTriggerFactoryBean standupJobTrigger(JobDetail jobDetail) {
+        CronTriggerFactoryBean factoryBean = new CronTriggerFactoryBean();
         factoryBean.setJobDetail(jobDetail);
-        factoryBean.setStartDelay(0);
-        factoryBean.setRepeatInterval(10000);
+        factoryBean.setCronExpression(cronTime);
         return factoryBean;
     }
 
@@ -71,12 +73,10 @@ public class QuartzConfig {
     public SchedulerFactoryBean schedulerFactoryBean(@Qualifier("standupJobTrigger") Trigger standupJobTrigger) {
         SchedulerFactoryBean factoryBean = new SchedulerFactoryBean();
         factoryBean.setTriggers(standupJobTrigger);
-
         // Job factory using Spring DI
         AutowireringSpringBeanJobFactory jobFactory = new AutowireringSpringBeanJobFactory();
         jobFactory.setApplicationContext(applicationContext);
         factoryBean.setJobFactory(jobFactory);
-
         return factoryBean;
     }
 

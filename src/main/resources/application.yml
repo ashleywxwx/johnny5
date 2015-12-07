@@ -9,3 +9,4 @@ logging:
 jobdetail:
   standup:
     greeting: "Hello world!"
+    time: "0 25 9 ? * MON,TUE,WED,THU *"
