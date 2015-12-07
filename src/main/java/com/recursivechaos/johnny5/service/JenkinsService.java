@@ -39,7 +39,9 @@ public class JenkinsService {
         try {
             Map<String, String> jobStatuses = getJobStatuses();
             for (Map.Entry<String, String> job : jobStatuses.entrySet()) {
-                sendMessage(job.getKey() + ": " + job.getValue());
+                if (!job.getValue().equals("SUCCESS")) {
+                    sendMessage(job.getKey() + ": " + job.getValue());
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();

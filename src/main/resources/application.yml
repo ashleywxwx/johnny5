@@ -6,6 +6,7 @@ slack:
 logging:
   level:
     com.recursivechaos: DEBUG
+    com.ullink.slack: INFO
 
 jobdetail:
   standup:
