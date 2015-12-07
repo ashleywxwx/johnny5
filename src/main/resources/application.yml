@@ -6,4 +6,6 @@ logging:
   level:
     com.recursivechaos: DEBUG
 
-
+jobdetail:
+  standup:
+    greeting: "Hello world!"
