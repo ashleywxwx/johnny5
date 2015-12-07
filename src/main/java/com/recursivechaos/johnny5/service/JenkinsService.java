@@ -11,6 +11,8 @@ import com.offbytwo.jenkins.JenkinsServer;
 import com.offbytwo.jenkins.model.Job;
 import com.ullink.slack.simpleslackapi.SlackChannel;
 import com.ullink.slack.simpleslackapi.SlackSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,8 @@ import java.util.Map;
 
 @Service
 public class JenkinsService {
+
+    private static final Logger logger = LoggerFactory.getLogger(JenkinsService.class);
 
     @Autowired
     JenkinsServer jenkinsServer;
@@ -33,7 +37,6 @@ public class JenkinsService {
     public void sendMessage(String myMessage) {
         slackSession.sendMessage(slackChannel, myMessage, null);
     }
-
 
     public void sendJobStatus() {
         try {
@@ -54,7 +57,12 @@ public class JenkinsService {
         Map<String, Job> jobs = jenkinsServer.getJobs();
 
         for (Job job : jobs.values()) {
-            statuses.put(job.getName(), job.details().getLastBuild().details().getResult().name());
+            logger.debug("Checking job name : {}", job.getName());
+            if (null!=job.details().getLastBuild()) {
+                statuses.put(job.getName(), job.details().getLastBuild().details().getResult().name());
+            } else {
+                logger.info("Job {} has not been built yet", job.getName());
+            }
         }
 
         return statuses;

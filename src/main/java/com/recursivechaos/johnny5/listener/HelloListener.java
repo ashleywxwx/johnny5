@@ -21,11 +21,11 @@ public class HelloListener implements SlackMessagePostedListener {
     public void onEvent(SlackMessagePosted event, SlackSession session) {
         log.debug("Message Posted: '{}'", event.getMessageContent().toUpperCase());
 
-        if (event.getMessageContent().trim().toUpperCase().contains("HELLO <@U0CSFUZHB>")) {
+        if (event.getMessageContent().trim().toUpperCase().contains("HELLO JOHNNY-5")) {
             session.sendMessage(event.getChannel(), " Hello " + event.getSender().getUserName() + ". Number 5 is alive.", null);
         }
 
-        if (event.getMessageContent().toUpperCase().contains("<@U0CSFUZHB>: JENKINS STATUS")) {
+        if (event.getMessageContent().toUpperCase().contains("JENKINS STATUS")) {
             log.info("Fetching Jenkins status...");
             jenkinsService.sendMessage("Sure thing partner.");
             jenkinsService.sendJobStatus();
