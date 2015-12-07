@@ -9,6 +9,8 @@ package com.recursivechaos.johnny5.service;
 
 import com.offbytwo.jenkins.JenkinsServer;
 import com.offbytwo.jenkins.model.Job;
+import com.ullink.slack.simpleslackapi.SlackChannel;
+import com.ullink.slack.simpleslackapi.SlackSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,11 +24,34 @@ public class JenkinsService {
     @Autowired
     JenkinsServer jenkinsServer;
 
-    public Map<String, String> getJobStatuses() throws IOException {
+    @Autowired
+    SlackSession slackSession;
+
+    @Autowired
+    SlackChannel slackChannel;
+
+    public void sendMessage(String myMessage) {
+        slackSession.sendMessage(slackChannel, myMessage, null);
+    }
+
+
+    public void sendJobStatus() {
+        try {
+            Map<String, String> jobStatuses = getJobStatuses();
+            for (Map.Entry<String, String> job : jobStatuses.entrySet()) {
+                sendMessage(job.getKey() + ": " + job.getValue());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            sendMessage("Malfunction! Could not fetch job statuses from Jenkins.");
+        }
+    }
+
+    private Map<String, String> getJobStatuses() throws IOException {
         Map<String, String> statuses = new HashMap<>();
         Map<String, Job> jobs = jenkinsServer.getJobs();
 
-        for (Job job : jobs.values()){
+        for (Job job : jobs.values()) {
             statuses.put(job.getName(), job.details().getLastBuild().details().getResult().name());
         }
 

@@ -20,10 +20,13 @@ public class Startup implements CommandLineRunner{
     @Autowired
     SlackSession slackSession;
 
+    @Autowired
+    HelloListener helloListener;
+
     @Override
     public void run(String... args) throws Exception {
         log.info("Service started with key: " + apiKey);
         slackSession.connect();
-        slackSession.addMessagePostedListener(new HelloListener());
+        slackSession.addMessagePostedListener(helloListener);
     }
 }

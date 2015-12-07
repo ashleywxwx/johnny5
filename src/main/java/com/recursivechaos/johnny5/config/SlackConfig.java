@@ -1,5 +1,6 @@
 package com.recursivechaos.johnny5.config;
 
+import com.recursivechaos.johnny5.listener.HelloListener;
 import com.ullink.slack.simpleslackapi.SlackChannel;
 import com.ullink.slack.simpleslackapi.SlackSession;
 import com.ullink.slack.simpleslackapi.impl.SlackSessionFactory;
@@ -39,6 +40,11 @@ public class SlackConfig {
     @Bean
     SlackChannel slackChannel() throws IOException {
         return slackSession.findChannelByName(channel);
+    }
+
+    @Bean
+    HelloListener helloListener() {
+        return new HelloListener();
     }
 
 }
