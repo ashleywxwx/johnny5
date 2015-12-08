@@ -20,6 +20,10 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>1.8</java.version>
+    <docker.skipDockerBuild>true</docker.skipDockerBuild>
+    <docker.prefix>johnny5</docker.prefix>
+    <project.shortname>jn5</project.shortname>
+    <docker.baseImage>java/8-jre</docker.baseImage>
   </properties>
 
   <dependencies>
@@ -72,6 +76,37 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>com.spotify</groupId>
+        <artifactId>docker-maven-plugin</artifactId>
+        <version>0.3.2</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>build</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <skipDockerBuild>${docker.skipDockerBuild}</skipDockerBuild>
+          <imageName>${docker.prefix}/${project.shortname}</imageName>
+          <imageTags>
+            <imageTag>${project.version}</imageTag>
+          </imageTags>
+          <forceTags>true</forceTags>
+          <baseImage>${docker.baseImage}</baseImage>
+          <cmd> java -Xmx1096m -jar /${project.build.finalName}.jar</cmd>
+          <!-- copy the service's jar file from target into the root directory of the image -->
+          <resources>
+            <resource>
+              <directory>${project.build.directory}</directory>
+              <include>${project.build.finalName}.jar</include>
+            </resource>
+          </resources>
+        </configuration>
       </plugin>
     </plugins>
   </build>
