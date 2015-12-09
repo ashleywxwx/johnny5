@@ -2,9 +2,13 @@
 
 A slack bot using [Simple Slack API](https://github.com/Ullink/simple-slack-api) and Spring Boot
 
+## Personalize ##
+
+Create a application-local.yml overriding the default authentication for Slack and Jenkins
+
 ## Run ##
 
-'mvn spring-boot:run'
+'mvn spring-boot:run -Dspring.profiles.active=local'
 
 ## Deploy Docker Image ##
 
