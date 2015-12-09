@@ -11,7 +11,7 @@ logging:
 jobdetail:
   standup:
     greeting: "Standup starts in 5 minutes."
-    time: "0 25 9 ? * MON,TUE,WED,THU *"
+    time: "0 25 9 ? * MON,TUE,WED,THU,FRI *"
 
 jenkins:
   server: http://localhost:8080
