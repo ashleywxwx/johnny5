@@ -34,21 +34,21 @@ public class JenkinsService {
     @Autowired
     SlackChannel slackChannel;
 
-    public void sendMessage(String myMessage) {
+    public void sendMessage(String myMessage, SlackChannel slackChannel) {
         slackSession.sendMessage(slackChannel, myMessage, null);
     }
 
-    public void sendJobStatus() {
+    public void sendJobStatus(SlackChannel slackChannel) {
         try {
             Map<String, String> jobStatuses = getJobStatuses();
             for (Map.Entry<String, String> job : jobStatuses.entrySet()) {
                 if (!job.getValue().equals("SUCCESS")) {
-                    sendMessage(job.getKey() + ": " + job.getValue());
+                    sendMessage(job.getKey() + ": " + job.getValue(), slackChannel);
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
-            sendMessage("Malfunction! Could not fetch job statuses from Jenkins.");
+            sendMessage("Malfunction! Could not fetch job statuses from Jenkins.", slackChannel);
         }
     }
 

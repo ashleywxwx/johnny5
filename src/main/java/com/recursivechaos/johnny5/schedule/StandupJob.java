@@ -8,6 +8,7 @@
 package com.recursivechaos.johnny5.schedule;
 
 import com.recursivechaos.johnny5.service.JenkinsService;
+import com.ullink.slack.simpleslackapi.SlackChannel;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +23,15 @@ public class StandupJob extends QuartzJobBean {
     @Autowired
     JenkinsService jenkinsService;
 
+    @Autowired
+    SlackChannel defaultChannel;
+
     private String message;
 
     @Override
     protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
-        jenkinsService.sendMessage(message);
-        jenkinsService.sendJobStatus();
+        jenkinsService.sendMessage(message, defaultChannel);
+        jenkinsService.sendJobStatus(defaultChannel);
     }
 
 

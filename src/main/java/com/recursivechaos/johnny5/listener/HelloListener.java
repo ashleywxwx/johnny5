@@ -27,8 +27,8 @@ public class HelloListener implements SlackMessagePostedListener {
 
         if (event.getMessageContent().toUpperCase().contains("JENKINS STATUS")) {
             log.info("Fetching Jenkins status...");
-            jenkinsService.sendMessage("Sure thing partner.");
-            jenkinsService.sendJobStatus();
+            jenkinsService.sendMessage("Sure thing partner.", event.getChannel());
+            jenkinsService.sendJobStatus(event.getChannel());
         }
     }
 
