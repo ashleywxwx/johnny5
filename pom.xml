@@ -20,10 +20,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>1.8</java.version>
-    <docker.skipDockerBuild>true</docker.skipDockerBuild>
-    <docker.prefix>johnny5</docker.prefix>
-    <project.shortname>jn5</project.shortname>
-    <docker.baseImage>java/8-jre</docker.baseImage>
+    <docker.image.prefix>johnny5-bot</docker.image.prefix>
   </properties>
 
   <dependencies>
@@ -77,7 +74,6 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
-
       <plugin>
         <groupId>com.spotify</groupId>
         <artifactId>docker-maven-plugin</artifactId>
@@ -91,17 +87,19 @@
           </execution>
         </executions>
         <configuration>
-          <skipDockerBuild>${docker.skipDockerBuild}</skipDockerBuild>
-          <imageName>${docker.prefix}/${project.shortname}</imageName>
+          <imageName>johnny5/${project.artifactId}</imageName>
+          <forceTags>true</forceTags>
           <imageTags>
             <imageTag>${project.version}</imageTag>
           </imageTags>
-          <forceTags>true</forceTags>
-          <baseImage>${docker.baseImage}</baseImage>
-          <cmd> java -Xmx1096m -jar /${project.build.finalName}.jar</cmd>
-          <!-- copy the service's jar file from target into the root directory of the image -->
+          <baseImage>java</baseImage>
+          <entryPoint>
+            <!-- Don't let any auto-formatting break this line up -->
+            ["java", "-jar", "/${project.build.finalName}.jar", "-Dspring.config.location=file:/opt/properties/${project.build.finalName}/"]
+          </entryPoint>
           <resources>
             <resource>
+              <!-- copy the service's jar file from target into the root directory of the image -->
               <directory>${project.build.directory}</directory>
               <include>${project.build.finalName}.jar</include>
             </resource>

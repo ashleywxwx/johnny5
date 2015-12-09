@@ -17,6 +17,9 @@ public class Startup implements CommandLineRunner {
     @Value("${slack.api.key}")
     public String apiKey;
 
+    @Value("${spring.config.location:NONE_PASSED}")
+    public String properties;
+
     @Autowired
     SlackSession slackSession;
 
@@ -25,7 +28,8 @@ public class Startup implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        log.info("Service started with key: " + apiKey);
+        log.info("Properties provided: " + properties);
+        log.info("Slack service started with key: ..." + apiKey.substring(apiKey.length() - 4));
         slackSession.addMessagePostedListener(helloListener);
     }
 }
