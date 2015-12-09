@@ -20,6 +20,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>1.8</java.version>
+    <docker.image.prefix>johnny5-bot</docker.image.prefix>
   </properties>
 
   <dependencies>
@@ -72,6 +73,38 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>com.spotify</groupId>
+        <artifactId>docker-maven-plugin</artifactId>
+        <version>0.3.2</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>build</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <imageName>johnny5/${project.artifactId}</imageName>
+          <forceTags>true</forceTags>
+          <imageTags>
+            <imageTag>${project.version}</imageTag>
+          </imageTags>
+          <baseImage>java</baseImage>
+          <entryPoint>
+            <!-- Don't let any auto-formatting break this line up -->
+            ["java", "-jar", "/${project.build.finalName}.jar", "-Dspring.config.location=file:/opt/properties/${project.build.finalName}/"]
+          </entryPoint>
+          <resources>
+            <resource>
+              <!-- copy the service's jar file from target into the root directory of the image -->
+              <directory>${project.build.directory}</directory>
+              <include>${project.build.finalName}.jar</include>
+            </resource>
+          </resources>
+        </configuration>
       </plugin>
     </plugins>
   </build>
