@@ -22,7 +22,7 @@ public class HelloListener implements SlackMessagePostedListener {
         log.debug("Message Posted: '{}'", event.getMessageContent().toUpperCase());
 
         if (event.getMessageContent().trim().toUpperCase().contains("HELLO JOHNNY-5")) {
-            session.sendMessage(event.getChannel(), " Hello " + event.getSender().getUserName() + ". Number 5 is alive.", null);
+            session.sendMessage(event.getChannel(), " Hello " + event.getSender().getUserName() + ". Number 5 is alive. :robot_face:", null);
         }
 
         if (event.getMessageContent().toUpperCase().contains("JENKINS STATUS")) {

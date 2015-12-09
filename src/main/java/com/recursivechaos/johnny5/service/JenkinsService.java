@@ -8,6 +8,7 @@
 package com.recursivechaos.johnny5.service;
 
 import com.offbytwo.jenkins.JenkinsServer;
+import com.offbytwo.jenkins.model.BuildResult;
 import com.offbytwo.jenkins.model.Job;
 import com.ullink.slack.simpleslackapi.SlackChannel;
 import com.ullink.slack.simpleslackapi.SlackSession;
@@ -43,13 +44,32 @@ public class JenkinsService {
             Map<String, String> jobStatuses = getJobStatuses();
             for (Map.Entry<String, String> job : jobStatuses.entrySet()) {
                 if (!job.getValue().equals("SUCCESS")) {
-                    sendMessage(job.getKey() + ": " + job.getValue(), slackChannel);
+                    sendMessage(getEmoticon(job.getValue()) + " " + job.getKey() + ": " + job.getValue(), slackChannel);
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
             sendMessage("Malfunction! Could not fetch job statuses from Jenkins.", slackChannel);
         }
+    }
+
+    private String getEmoticon(String buildResult) {
+        String emoticon = ":question:";
+        BuildResult result = BuildResult.valueOf(buildResult);
+        switch (result) {
+            case FAILURE:
+                emoticon = ":rage:";
+                break;
+            case ABORTED:
+                emoticon = ":skull:";
+                break;
+            case UNSTABLE:
+                emoticon = ":scream:";
+                break;
+            default:
+                break;
+        }
+        return emoticon;
     }
 
     private Map<String, String> getJobStatuses() throws IOException {
@@ -61,7 +81,7 @@ public class JenkinsService {
             // TODO: We're still failing on parsing some jobs, refine this
             try {
                 if (null != job.details().getLastBuild()) {
-                    statuses.put(job.getName(), job.details().getLastBuild().details().getResult().name());
+                    statuses.put(job.details().getDisplayName(), job.details().getLastBuild().details().getResult().name());
                 } else {
                     logger.info("Job {} has not been built yet", job.getName());
                 }
