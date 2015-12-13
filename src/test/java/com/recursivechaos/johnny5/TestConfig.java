@@ -7,21 +7,14 @@
 
 package com.recursivechaos.johnny5;
 
-import com.recursivechaos.johnny5.config.JenkinsConfig;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
+import org.junit.Test;
 
-@Configuration
-@ConfigurationProperties("classpath:application-local.yml")
-@Import(JenkinsConfig.class)
+import static org.junit.Assert.assertTrue;
+
 public class TestConfig {
 
-    @Value("${jenkins.server}")
-    String server;
-
-
-
-
+    @Test
+    public void testTest() throws Exception {
+        assertTrue(true);
+    }
 }

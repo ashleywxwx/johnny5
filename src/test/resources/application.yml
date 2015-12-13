@@ -1,0 +1,19 @@
+slack:
+  api:
+    key: xoxb-YOUR-KEY
+  channel: channelname
+
+logging:
+  level:
+    com.recursivechaos: DEBUG
+    com.ullink.slack: INFO
+
+jobdetail:
+  standup:
+    greeting: "Standup starts in 5 minutes."
+    time: "0 25 9 ? * MON,TUE,WED,THU,FRI *"
+
+jenkins:
+  server: http://localhost:8080
+  username: username
+  password: password
