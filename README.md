@@ -1,6 +1,6 @@
 # Johnny 5 #
 
-A slack bot using [Simple Slack API](https://github.com/Ullink/simple-slack-api) and Spring Boot
+A slack bot using [Simple Slack API](https://github.com/Ullink/simple-slack-api), [Jenkins Client](https://github.com/RisingOak/jenkins-client), and Spring Boot
 
 ## Personalize ##
 
