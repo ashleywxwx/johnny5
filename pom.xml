@@ -20,7 +20,6 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>1.8</java.version>
-    <docker.image.prefix>johnny5-bot</docker.image.prefix>
   </properties>
 
   <dependencies>
