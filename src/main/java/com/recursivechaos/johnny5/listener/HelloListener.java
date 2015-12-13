@@ -1,6 +1,6 @@
 package com.recursivechaos.johnny5.listener;
 
-import com.recursivechaos.johnny5.service.JenkinsService;
+import com.recursivechaos.johnny5.service.SlackService;
 import com.ullink.slack.simpleslackapi.SlackSession;
 import com.ullink.slack.simpleslackapi.events.SlackMessagePosted;
 import com.ullink.slack.simpleslackapi.listeners.SlackMessagePostedListener;
@@ -15,7 +15,7 @@ public class HelloListener implements SlackMessagePostedListener {
     private final Logger log = LoggerFactory.getLogger(HelloListener.class);
 
     @Autowired
-    JenkinsService jenkinsService;
+    SlackService slackService;
 
     @Override
     public void onEvent(SlackMessagePosted event, SlackSession session) {
@@ -26,9 +26,7 @@ public class HelloListener implements SlackMessagePostedListener {
         }
 
         if (event.getMessageContent().toUpperCase().contains("JENKINS STATUS")) {
-            log.info("Fetching Jenkins status...");
-            jenkinsService.sendMessage("Sure thing partner.", event.getChannel());
-            jenkinsService.sendJobStatus(event.getChannel());
+            slackService.sendJobStatus(event.getChannel());
         }
     }
 
