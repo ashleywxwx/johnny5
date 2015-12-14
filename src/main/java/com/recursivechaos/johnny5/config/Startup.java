@@ -14,7 +14,7 @@ public class Startup implements CommandLineRunner {
 
     private final Logger log = LoggerFactory.getLogger(Startup.class);
 
-    @Value("${slack.api.key}")
+    @Value("${slack.bot.apikey}")
     public String apiKey;
 
     @Value("${spring.config.location:NONE_PASSED}")
@@ -29,7 +29,7 @@ public class Startup implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         log.info("Properties provided: " + properties);
-        log.info("Slack service started with key: ..." + apiKey.substring(apiKey.length() - 4));
+        log.info("Slack service started with apikey: ..." + apiKey.substring(apiKey.length() - 4));
         slackSession.addMessagePostedListener(helloListener);
     }
 }

@@ -8,8 +8,10 @@
 package com.recursivechaos.johnny5.service;
 
 import com.offbytwo.jenkins.model.BuildResult;
+import com.recursivechaos.johnny5.config.SlackConfig;
 import com.ullink.slack.simpleslackapi.SlackChannel;
 import com.ullink.slack.simpleslackapi.SlackSession;
+import com.ullink.slack.simpleslackapi.SlackUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

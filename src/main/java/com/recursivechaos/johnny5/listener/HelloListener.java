@@ -1,6 +1,7 @@
 package com.recursivechaos.johnny5.listener;
 
 import com.recursivechaos.johnny5.service.SlackService;
+import com.ullink.slack.simpleslackapi.SlackPersona;
 import com.ullink.slack.simpleslackapi.SlackSession;
 import com.ullink.slack.simpleslackapi.events.SlackMessagePosted;
 import com.ullink.slack.simpleslackapi.listeners.SlackMessagePostedListener;
@@ -9,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+
 @Component
 public class HelloListener implements SlackMessagePostedListener {
 
@@ -16,12 +19,21 @@ public class HelloListener implements SlackMessagePostedListener {
 
     @Autowired
     SlackService slackService;
+    //@Autowired SlackPersona slackBot;
+
+    private static String botName;
+
+//    @PostConstruct
+//    private void setBotName() {
+//        botName = slackBot.getId();
+//        log.info("Bot name set to: " + botName);
+//    }
 
     @Override
     public void onEvent(SlackMessagePosted event, SlackSession session) {
         log.debug("Message Posted: '{}'", event.getMessageContent().toUpperCase());
 
-        if (event.getMessageContent().trim().toUpperCase().contains("HELLO JOHNNY-5")) {
+        if (event.getMessageContent().trim().toUpperCase().contains("HELLO " + botName)) {
             session.sendMessage(event.getChannel(), " Hello " + event.getSender().getUserName() + ". Number 5 is alive. :robot_face:", null);
         }
 

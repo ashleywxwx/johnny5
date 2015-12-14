@@ -1,7 +1,8 @@
 slack:
-  api:
-    key: xoxb-YOUR-KEY
-  channel: channelname
+  bot:
+    apikey: xoxb-YOUR-KEY
+    channel: bot-lab
+    name: johnny-5
 
 logging:
   level:
