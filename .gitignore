@@ -16,3 +16,5 @@ hs_err_pid*
 
 ## My files
 application-local.yml
+application-home.yml
+application-work.yml
