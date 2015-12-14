@@ -8,8 +8,8 @@
 package com.recursivechaos.johnny5.config;
 
 import com.offbytwo.jenkins.JenkinsServer;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import com.recursivechaos.johnny5.properties.JenkinsProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -17,21 +17,14 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 @Configuration
-@ConfigurationProperties
 public class JenkinsConfig {
 
-    @Value("${jenkins.server}")
-    private String server;
-
-    @Value("${jenkins.username}")
-    private String username;
-
-    @Value("${jenkins.password}")
-    private String password;
+    @Autowired
+    JenkinsProperties jenkinsProperties;
 
     @Bean
     public JenkinsServer jenkinsServer() throws URISyntaxException {
-        return new JenkinsServer(new URI(server), username, password);
+        return new JenkinsServer(new URI(jenkinsProperties.server), jenkinsProperties.username, jenkinsProperties.password);
     }
 
 }

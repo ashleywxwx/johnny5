@@ -1,0 +1,10 @@
+slack:
+  bot:
+    key: xoxb-12899985589-kK5MDIQtyGBDw76hrGoarICj
+    channel: bot-lab
+    name: johnny-5
+
+jenkins:
+  server: http://192.168.1.51:8080/
+  username: username
+  password: password

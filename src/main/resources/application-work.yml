@@ -1,0 +1,10 @@
+slack:
+  bot:
+    key: xoxb-16057742132-N0pFC66gEq5Itsamlmii4KOs
+    channel: gateway-bot
+    name: johnny-5
+
+jenkins:
+  server: http://cladevgsops01.clearent.lan:8080/
+  username: username
+  password: password
