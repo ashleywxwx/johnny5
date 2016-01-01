@@ -1,14 +1,19 @@
 {
     "properties": [
         {
-            "name": "slack.api.key",
+            "name": "slack.bot.apikey",
             "type": "java.lang.String",
             "description": "Your Slack API Key"
         },
         {
-            "name": "slack.channel",
+            "name": "slack.bot.channel",
             "type": "java.lang.String",
             "description": "The channel you want your Slack bot to post in"
+        },
+        {
+            "name": "slack.bot.name",
+            "type": "java.lang.String",
+            "description": "The name you configured slack for your bot"
         },
         {
             "name": "jobdetail.standup.greeting",
