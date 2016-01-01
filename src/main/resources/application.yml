@@ -1,6 +1,6 @@
 slack:
   bot:
-    apikey: xoxb-YOUR-KEY
+    key: xoxb-YOUR-KEY
     channel: bot-lab
     name: johnny-5
 
@@ -9,7 +9,7 @@ logging:
     com.recursivechaos: DEBUG
     com.ullink.slack: INFO
 
-jobdetail:
+jobdetails:
   standup:
     greeting: "Standup starts in 5 minutes."
     time: "0 25 9 ? * MON,TUE,WED,THU,FRI *"

@@ -8,15 +8,17 @@
 package com.recursivechaos.johnny5.service;
 
 import com.offbytwo.jenkins.model.BuildResult;
-import com.recursivechaos.johnny5.config.SlackConfig;
+import com.recursivechaos.johnny5.properties.SlackProperties;
+import com.ullink.slack.simpleslackapi.SlackBot;
 import com.ullink.slack.simpleslackapi.SlackChannel;
+import com.ullink.slack.simpleslackapi.SlackPersona;
 import com.ullink.slack.simpleslackapi.SlackSession;
-import com.ullink.slack.simpleslackapi.SlackUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -32,6 +34,9 @@ public class SlackService {
 
     @Autowired
     JenkinsService jenkinsService;
+
+    @Autowired
+    SlackProperties slackProperties;
 
     /**
      * Sends a message to the provided channel
@@ -56,6 +61,26 @@ public class SlackService {
                 .map(getJobStatusMessage())
                 .collect(Collectors.joining("\n", "Sure thing partner\n", ""));
         sendMessage(failedJobsMessage, slackChannel);
+    }
+
+    /**
+     * Returns the bot that matches the property provided in configuration
+     *
+     * @return SlackPersona of bot
+     */
+    public SlackPersona getBot() {
+        SlackPersona foundBot = null;
+        String botName = slackProperties.getName();
+        Collection<SlackBot> bots = slackSession.getBots();
+        for (SlackBot bot : bots) {
+            if (bot.getUserName().equalsIgnoreCase(botName)) {
+                foundBot = bot;
+            }
+        }
+        if (null == foundBot) {
+            throw new IllegalStateException("Unable to find bot " + botName);
+        }
+        return foundBot;
     }
 
     /**

@@ -19,21 +19,18 @@ public class HelloListener implements SlackMessagePostedListener {
 
     @Autowired
     SlackService slackService;
-    //@Autowired SlackPersona slackBot;
 
-    private static String botName;
+    private SlackPersona bot;
 
-//    @PostConstruct
-//    private void setBotName() {
-//        botName = slackBot.getId();
-//        log.info("Bot name set to: " + botName);
-//    }
+    @PostConstruct
+    private void setBotName() {
+        bot = slackService.getBot();
+    }
 
     @Override
     public void onEvent(SlackMessagePosted event, SlackSession session) {
         log.debug("Message Posted: '{}'", event.getMessageContent().toUpperCase());
-
-        if (event.getMessageContent().trim().toUpperCase().contains("HELLO " + botName)) {
+        if (event.getMessageContent().trim().toUpperCase().contains("HELLO <@" + bot.getId() + ">")) {
             session.sendMessage(event.getChannel(), " Hello " + event.getSender().getUserName() + ". Number 5 is alive. :robot_face:", null);
         }
 

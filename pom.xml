@@ -92,7 +92,7 @@
           </execution>
         </executions>
         <configuration>
-          <imageName>johnny5/${project.artifactId}</imageName>
+          <imageName>recursivechaos/${project.artifactId}</imageName>
           <forceTags>true</forceTags>
           <imageTags>
             <imageTag>${project.version}</imageTag>
