@@ -14,7 +14,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>1.3.0.M5</version>
+    <version>1.3.2.BUILD-SNAPSHOT</version>
   </parent>
 
   <properties>
@@ -35,6 +35,11 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-tx</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-consul-all</artifactId>
+      <version>1.0.0.BUILD-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -100,7 +105,8 @@
           <baseImage>java</baseImage>
           <entryPoint>
             <!-- Don't let any auto-formatting break this line up -->
-            ["java", "-jar", "/${project.build.finalName}.jar", "-Dspring.config.location=file:/opt/properties/${project.build.finalName}/"]
+            ["java", "-jar", "/${project.build.finalName}.jar",
+            "-Dspring.config.location=file:/opt/properties/${project.build.finalName}/"]
           </entryPoint>
           <resources>
             <resource>
