@@ -1,7 +1,0 @@
-spring:
-  application:
-    name: johnny-5
-  cloud:
-    consul:
-      host: localhost
-      port: 8500
