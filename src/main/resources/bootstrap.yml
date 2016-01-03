@@ -1,5 +1,7 @@
 spring:
+  application:
+    name: johnny-5
   cloud:
     consul:
-      host: cladevgsops02
+      host: localhost
       port: 8500

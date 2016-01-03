@@ -21,6 +21,8 @@ Set environment variable DOCKER_HOST=tcp://hostname:2375 to run against a remote
 Create a bootstrap.yml (see bootstrap-example.yml) and add the following properties:
 
     spring:
+      application:
+        name: johnny-5
       cloud:
         consul:
           host: localhost
