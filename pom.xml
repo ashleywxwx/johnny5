@@ -100,7 +100,7 @@
           <baseImage>java</baseImage>
           <entryPoint>
             <!-- Don't let any auto-formatting break this line up -->
-            ["java", "-jar", "/${project.build.finalName}.jar", "-Dspring.config.location=file:/opt/properties/${project.build.finalName}/"]
+            ["java", "-jar", "/${project.build.finalName}.jar", "-Dspring.config.location=file:/opt/docker/johnny-5/"]
           </entryPoint>
           <resources>
             <resource>
