@@ -14,7 +14,7 @@ public class Startup implements CommandLineRunner {
 
     private final Logger log = LoggerFactory.getLogger(Startup.class);
 
-    @Value("${slack.api.key}")
+    @Value("${slack.apikey}")
     public String apiKey;
 
     @Value("${spring.config.location:NONE_PASSED}")

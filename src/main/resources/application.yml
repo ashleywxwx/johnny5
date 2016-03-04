@@ -1,6 +1,5 @@
 slack:
-  api:
-    key: xoxb-YOUR-KEY
+  apikey: xoxb-YOUR-KEY
   channel: channelname
 
 logging:

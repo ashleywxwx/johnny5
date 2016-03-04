@@ -22,7 +22,7 @@ public class SlackConfig {
     @Value("${slack.channel}")
     String channel;
 
-    @Value("${slack.api.key}")
+    @Value("${slack.apikey}")
     String key;
 
     SlackSession slackSession;
