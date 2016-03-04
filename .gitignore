@@ -15,4 +15,4 @@ hs_err_pid*
 .idea/
 
 ## My files
-application-local.yml
+application-*.yml

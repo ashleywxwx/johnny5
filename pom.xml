@@ -59,6 +59,12 @@
       <artifactId>jenkins-client</artifactId>
       <version>0.3.2</version>
     </dependency>
+    <!-- Lombok -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.16.4</version>
+    </dependency>
     <!-- Test -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -86,7 +92,7 @@
           </execution>
         </executions>
         <configuration>
-          <imageName>johnny5/${project.artifactId}</imageName>
+          <imageName>recursivechaos/${project.artifactId}</imageName>
           <forceTags>true</forceTags>
           <imageTags>
             <imageTag>${project.version}</imageTag>

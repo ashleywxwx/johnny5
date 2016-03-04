@@ -18,7 +18,7 @@ import org.springframework.scheduling.quartz.SpringBeanJobFactory;
  * Autowires our job dependencies
  * https://gist.github.com/jelies/5085593
  */
-public class AutowireringSpringBeanJobFactory extends SpringBeanJobFactory implements ApplicationContextAware {
+public class QuartzJobFactory extends SpringBeanJobFactory implements ApplicationContextAware {
 
     private transient AutowireCapableBeanFactory beanFactory;
 
