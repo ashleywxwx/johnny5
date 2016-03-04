@@ -97,7 +97,7 @@
           <imageTags>
             <imageTag>${project.version}</imageTag>
           </imageTags>
-          <baseImage>java</baseImage>
+          <baseImage>java:8</baseImage>
           <entryPoint>
             <!-- Don't let any auto-formatting break this line up -->
             ["java", "-jar", "/${project.build.finalName}.jar", "-Dspring.config.location=file:/opt/docker/johnny-5/"]
